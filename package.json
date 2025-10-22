@@ -1,0 +1,17 @@
+{
+  "name": "sap_is_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script_usage.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "nodemailer": "^7.0.9"
+  }
+}
