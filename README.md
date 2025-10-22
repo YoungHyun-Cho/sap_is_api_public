@@ -42,3 +42,6 @@
 - functions에서 작업 대상 인터페이스 이름 또는 패키지 등을 설정
 - Application.js 또는 BatchApplication.js에서 수행할 작업 및 작업 대상 환경(DEV, QAS, PRD) 설정
 - 작업 및 작업 대상 최종 확인 후 Application.js 또는 BatchApplication.js의 confirmed를 true 할당 
+
+### 실행
+- 프로젝트 루트 경로에서 `node ./app/Application.js` 또는 `node ./app/BatchApplication.js`
