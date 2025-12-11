@@ -9,6 +9,7 @@ import { Undeploy } from "./functions/Undeploy.js";
 import { GlobalConstants } from "./GlobalConstants.js";
 import { DatastoreUsage } from "./functions/DatastoreUsage.js";
 import { VersionChecker } from "./functions/VersionChecker.js";
+import { DeleteDatastore } from "./functions/DeleteDatastore.js";
 
 const { DEST_ENUM } = GlobalConstants;
 

@@ -69,7 +69,8 @@ export const Deploy = (() => {
         for (let i = 0; i < targetIfList.length; i++) {
     
             const response = await fetch(
-                `${apiUrl}/api/v1/DeployIntegrationDesigntimeArtifact?Id='${targetIfList[i]}'&Version='active'`, {
+                `${apiUrl}/api/v1/DeployIntegrationDesigntimeArtifact` + 
+                `?Id='${targetIfList[i]}'&Version='active'`, {
                 method : "POST",
                 headers : {
                     "Authorization" : `Bearer ${accessToken}`,
@@ -127,7 +128,8 @@ export const Deploy = (() => {
             console.log(`✅ Searching target interface in ${packageIdList[i]}...`)
     
             const response = await fetch(
-                `${apiUrl}/api/v1/IntegrationPackages('${packageIdList[i]}')/IntegrationDesigntimeArtifacts`, {
+                `${apiUrl}/api/v1/IntegrationPackages('${packageIdList[i]}')` + 
+                `/IntegrationDesigntimeArtifacts`, {
                 method : "GET",
                 headers : {
                     "Authorization" : `Bearer ${accessToken}`,
@@ -152,21 +154,9 @@ export const Deploy = (() => {
     
     // 타겟 인터페이스 목록 추출
     const extractTargetIf = (ifIdList) => 
-        
-        // 인터페이스 ID 목록을 순회하면서 필터링
-        ifIdList.filter(
-
-            // 키워드 배열을 순회하면서 하나라도 조건이 충족되면 true
-            ifId => KEYWORDS.some(
-
-                // 키워드를 _로 쪼개고, 
-                keyword => keyword.split("_").every(
-
-                    // 인터페이스 ID가 모든 el을 포함하면 true
-                    el => ifId.includes(el)
-                )
-            )
-        ).sort(); // 보기 좋게 정렬해서 리턴
+        ifIdList.filter(ifId => 
+            KEYWORDS.some(keyword => 
+                keyword.split("_").every(el => ifId.includes(el)))).sort();
     
     return {
         TAG,

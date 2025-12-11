@@ -29,7 +29,7 @@ export const Undeploy = (() => {
      *     - SD_0049 : SD_0049로 시작하는 모든 인터페이스 언디플로이
      *     - SD_0049_GR312ERP : SD_0049_GR312ERP로 시작하는 모든 인터페이스 언디플로이
     */
-    const INCLUDE_PREFIX = [
+    const KEYWORDS = [
         
     ];
     
@@ -117,7 +117,7 @@ export const Undeploy = (() => {
         responseBody.d.results
             .map(result => result.Id)
             .filter(ifid => 
-                INCLUDE_PREFIX.some(prefix => ifid.startsWith(prefix)));
+                KEYWORDS.some(prefix => ifid.includes(prefix)));
 
     return {
         TAG,
