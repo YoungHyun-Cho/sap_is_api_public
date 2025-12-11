@@ -6,8 +6,9 @@ export const BackUp = (() => {
 
     const TAG = "back up";
     
-    const TARGET_PACKAGE = [
-       
+    // 🟥 패키지 이름 목록
+    const TARGET_PACKAGE_LIST = [
+        
     ].map(p => p.replace("_", "").replace("-", ""));
     
     const run = async ({ API_URL, tag, accessToken }) => {
@@ -18,7 +19,7 @@ export const BackUp = (() => {
 
         // 대상 패키지 필터링
         const targetPackageList = 
-            packageIdList.filter(id => TARGET_PACKAGE.includes(id));
+            packageIdList.filter(id => TARGET_PACKAGE_LIST.includes(id));
 
         // 배포 대상 출력
         targetPackageList.forEach((el, i) => {
@@ -54,7 +55,7 @@ export const BackUp = (() => {
     
     const downloadPackage = async (apiUrl, tag, accessToken, packageIdList) => {
     
-        packageIdList = packageIdList.filter(id => TARGET_PACKAGE.includes(id));
+        packageIdList = packageIdList.filter(id => TARGET_PACKAGE_LIST.includes(id));
     
         for (let i = 0; i < packageIdList.length; i++) {
     

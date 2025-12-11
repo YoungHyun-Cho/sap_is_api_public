@@ -6,17 +6,19 @@ export const Deploy = (() => {
 
     const TAG = "batch deploy";
  
-    const KEYWORDS = [
+    // 🟥 인터페이스 ID 일부 목록
+    const PARTIAL_IF_ID_LIST = [
         
     ];
 
-    const targetPackages = [ 
+    // 🟥 타겟 패키지 ID 목록
+    const TARGET_PACKAGE_LIST = [ 
         
-    ];
+    ].map(p => p.replace("_", "").replace("-", ""));
     
     const run = async ({ API_URL, accessToken, csrfToken, cookieHeader }) => {
 
-        if (KEYWORDS.length <= 0 || targetPackages.length <= 0) {
+        if (PARTIAL_IF_ID_LIST.length <= 0 || TARGET_PACKAGE_LIST.length <= 0) {
             console.log("⚠️ Empty keywords or empty target packages.");
             return;
         }
@@ -113,7 +115,7 @@ export const Deploy = (() => {
             async () => 
                 (await response.json()).d.results
                     .map(el => el.Id)
-                    .filter(id => targetPackages.includes(id)),
+                    .filter(id => TARGET_PACKAGE_LIST.includes(id)),
             response, 
             "Failed to fetch IF ID",
         )
@@ -155,7 +157,7 @@ export const Deploy = (() => {
     // 타겟 인터페이스 목록 추출
     const extractTargetIf = (ifIdList) => 
         ifIdList.filter(ifId => 
-            KEYWORDS.some(keyword => 
+            PARTIAL_IF_ID_LIST.some(keyword => 
                 keyword.split("_").every(el => ifId.includes(el)))).sort();
     
     return {

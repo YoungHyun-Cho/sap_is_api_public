@@ -5,9 +5,10 @@ export const Metadata = (() => {
 
     const TAG = "metadata";
 
-    const targetPackages = [ 
+    // 🟥 패키지 이름 목록
+    const TARGET_PACKAGE_LIST = [ 
         
-    ];
+    ].map(p => p.replace("_", "").replace("-", ""));
     
     const run = async ({ API_URL, accessToken, tag: env }) => {
 
@@ -45,11 +46,11 @@ export const Metadata = (() => {
     
         const list = [];
     
-        for (let i = 0; i < targetPackages.length; i++) {
+        for (let i = 0; i < TARGET_PACKAGE_LIST.length; i++) {
             
             list.push(
                 ...await getInterfaceInPackage(
-                    apiUrl, accessToken, targetPackages[i]
+                    apiUrl, accessToken, TARGET_PACKAGE_LIST[i]
                 )
             );
         }

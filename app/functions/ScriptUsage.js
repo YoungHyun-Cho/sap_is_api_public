@@ -8,15 +8,18 @@ export const ScriptUsage = (() => {
 
     const TAG = "script usage";
     
-    const SCRIPT_NAMES = [
+    // 🟥 스크립트 이름 목록
+    const SCRIPT_NAME_LIST = [
         
     ];
 
-    const targetPackages = [ 
+    // 🟥 패키지 ID 목록
+    const TARGET_PACKAGE_LIST = [ 
         
-    ];
+    ].map(p => p.replace("_", "").replace("-", ""));
     
-    const IF_ID_PREFIX = [
+    // 🟥 인터페이스 ID 일부 목록
+    const PARTIAL_IF_ID_LIST = [
       
     ];
     
@@ -69,9 +72,9 @@ export const ScriptUsage = (() => {
                 });
             })
     
-        const longest = SCRIPT_NAMES.reduce((a, b) => b.length > a.length ? b : a);
+        const longest = SCRIPT_NAME_LIST.reduce((a, b) => b.length > a.length ? b : a);
         
-        SCRIPT_NAMES.forEach(scriptName => console.log(
+        SCRIPT_NAME_LIST.forEach(scriptName => console.log(
             `${scriptName}${" ".repeat(longest.length - scriptName.length)} -> ${
                 usageCount[scriptName] === undefined 
                     ? 0 : usageCount[scriptName]}`));
@@ -129,7 +132,7 @@ export const ScriptUsage = (() => {
 
         if (iflwEntry) {
             const content = zip.readAsText(iflwEntry);
-            const using = SCRIPT_NAMES.filter(name => content.includes(name + ".groovy"));
+            const using = SCRIPT_NAME_LIST.filter(name => content.includes(name + ".groovy"));
             
             return using.join(" ");
         }
@@ -140,11 +143,11 @@ export const ScriptUsage = (() => {
     
         const list = [];
     
-        for (let i = 0; i < targetPackages.length; i++) {
+        for (let i = 0; i < TARGET_PACKAGE_LIST.length; i++) {
             
             list.push(
                 ...await getInterfaceInPackage(
-                    apiUrl, accessToken, targetPackages[i]
+                    apiUrl, accessToken, TARGET_PACKAGE_LIST[i]
                 )
             );
         }
@@ -190,7 +193,7 @@ export const ScriptUsage = (() => {
     };
     
     const extractTargetIfList = (interfaceInfoList) => interfaceInfoList
-        .filter(ifInfo => IF_ID_PREFIX.some(prefix => ifInfo.Id.startsWith(prefix)))
+        .filter(ifInfo => PARTIAL_IF_ID_LIST.some(prefix => ifInfo.Id.includes(prefix)))
         .map(ifInfo => ({ id: ifInfo.Id, name: ifInfo.Name }))
 
     return {

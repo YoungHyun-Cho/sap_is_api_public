@@ -24,12 +24,8 @@ export const Undeploy = (() => {
 
     const TAG = "batch undeploy";
     
-    /** 아래 접두어로 시작하는 IF/ID는 모두 Undeploy 대상
-     *     - SD : SD로 시작하는 모든 인터페이스 언디플로이
-     *     - SD_0049 : SD_0049로 시작하는 모든 인터페이스 언디플로이
-     *     - SD_0049_GR312ERP : SD_0049_GR312ERP로 시작하는 모든 인터페이스 언디플로이
-    */
-    const KEYWORDS = [
+    // 🟥 인터페이스 ID 일부 목록
+    const PARTIAL_IF_ID_LIST = [
         
     ];
     
@@ -117,7 +113,7 @@ export const Undeploy = (() => {
         responseBody.d.results
             .map(result => result.Id)
             .filter(ifid => 
-                KEYWORDS.some(prefix => ifid.includes(prefix)));
+                PARTIAL_IF_ID_LIST.some(prefix => ifid.includes(prefix)));
 
     return {
         TAG,
