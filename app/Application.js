@@ -9,30 +9,37 @@ import { Undeploy } from "./functions/Undeploy.js";
 import { GlobalConstants } from "./GlobalConstants.js";
 import { DatastoreUsage } from "./functions/DatastoreUsage.js";
 import { VersionChecker } from "./functions/VersionChecker.js";
+import { ErrorNoticeMessage } from "./functions/ErrorNoticeMessage.js";
+import { DeploymentStatus } from "./functions/DeploymentStatus.js";
+import { Test } from "./functions/Test.js";
 import { DeleteDatastore } from "./functions/DeleteDatastore.js";
+import { EntryCount } from "./functions/EntryCount.js";
+import { EntryDownloadTest } from "./functions/EntryDownloadTest.js";
 
 const { DEST_ENUM } = GlobalConstants;
 
 export const Application = (() => {
 
     /** 🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻🔻 */
-    const OPERTATION  = Metadata;
+    const OPERTATION  = Deploy;
+    const SITE        = "HARIM";
     const DESTINATION = DEST_ENUM.DEV;
 
     // 설정 사항 최종 확인 후 true로 변경
-    const CONFIRMED = true;
+    // 🚨🚨🚨 ERP 키 활성화 요청 필수 🚨🚨🚨
+    /** ➡️➡️ */ const CONFIRMED = true; /** ⬅️⬅️ */ 
     /** 🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺🔺 */
 
     const run = async () => {
 
         // CONFIRMED == false 시 스크립트 실행 즉시 종료 -> 최종 확인 강제
         if (!CONFIRMED) {
-            console.log("🚫 Script is locked.")
+            console.log("🚫 Script is locked.");
             process.exit(0);
         }
 
         // 설정 오브젝트 획득
-        const DEST_CONFIG = DestinationConfiguration.get(DESTINATION);
+        const DEST_CONFIG = DestinationConfiguration.get(SITE, DESTINATION);
 
         // 설정 사항 확인
         console.log(`⚠️ You are initiating normal api call function`);
